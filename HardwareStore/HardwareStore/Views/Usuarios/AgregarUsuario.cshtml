@@ -1,0 +1,53 @@
+﻿@model Usuario
+
+<link rel="stylesheet" href="~/css/StyleRegistro.css">
+
+<div class="container">
+    <form asp-controller="Usuarios" asp-action="AgregarUsuario" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6" id="content">
+            <h3 class="signin-text mb-3">Registrate</h3>
+            <img src="~/img/users.png" alt="image" class="img-fluid" id="im">
+            <br>
+            <br>
+            <br>
+
+
+            <div class="form-group">
+                <label asp-for="Nombre" class="form-label">Nombre</label>
+                <input asp-for="Nombre" type="text" class="form-control" aria-describedby="emailHelp">
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+
+            <br>
+
+            <div class="form-group">
+                <label asp-for="Correo" class="form-label">Correo</label>
+                <input asp-for="Correo" type="email" class="form-control" aria-describedby="emailHelp">
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+
+
+            <br>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="exampleInputPassword1">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+
+            <br>
+
+            <div class="form-group">
+                <input asp-for="Rol"type="hidden" class="form-control" value="1" >
+            </div>
+
+            <br>
+
+            <button type="submit" class="btn btn-warning">Registrarme</button>
+
+        </div>
+    </form>
+</div>

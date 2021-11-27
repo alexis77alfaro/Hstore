@@ -318,3 +318,4 @@ C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Vi
 C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Usuarios\LoginUsuario.cshtml.g.cs
 C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\HardwareStore.csproj.AssemblyReference.cache
 C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Productos\Index.cshtml.g.cs
+C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Usuarios\AgregarUsuario.cshtml.g.cs

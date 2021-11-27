@@ -78,12 +78,14 @@ namespace HardwareStore.Controllers
 
         //Http Post LoginUsuario
         [HttpPost]
-        public ActionResult DoAgregarUsuario(Usuario user)
+        public ActionResult AgregarUsuario(Usuario user)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(user);
                 _context.SaveChanges();
+
+                return RedirectToAction("LoginUsuario", "Usuarios");
             }
 
             return View();
