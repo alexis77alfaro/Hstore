@@ -20,7 +20,7 @@ namespace HardwareStore.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult IndexUsuario()
         {
             if (HttpContext.Session.GetString("IdUsuario") != null)
             {
@@ -42,6 +42,9 @@ namespace HardwareStore.Controllers
                 {
 
                 }
+            }
+            else {
+                return RedirectToAction("ErrorUsuario", "Usuarios");
             }
             return View();
         }

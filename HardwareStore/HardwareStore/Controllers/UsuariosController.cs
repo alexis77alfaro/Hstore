@@ -44,6 +44,7 @@ namespace HardwareStore.Controllers
             else
             {
                 SesionUsuario = new Usuario();
+                return RedirectToAction("ErrorUsuario");
             }
             return View();
         }
@@ -56,7 +57,7 @@ namespace HardwareStore.Controllers
 
         //Http Post LoginUsuario
         [HttpPost]
-        public ActionResult DoLoginUsuario(Usuario user)
+        public ActionResult LoginUsuario(Usuario user)
         {
             Usuario usuario = _context.usuario.Where(s => s.Correo == user.Correo && s.Password == user.Password).FirstOrDefault();
 
@@ -65,14 +66,16 @@ namespace HardwareStore.Controllers
                 HttpContext.Session.SetString("IdUsuario", usuario.Id.ToString());
                 return RedirectToAction("Index", "Usuarios");
             }
-
-            return RedirectToAction("Error", "Home");
+            else
+            {
+                TempData["mensajeLoginFallo"] = "No se encontró a este usuario!";
+                return View();
+            }
         }
 
         //Http Post LoginUsuario
         public ActionResult AgregarUsuario()
         {
-
             return View();
         }
 
@@ -88,6 +91,90 @@ namespace HardwareStore.Controllers
                 return RedirectToAction("LoginUsuario", "Usuarios");
             }
 
+            return View();
+        }
+
+        public ActionResult AgregarAdmin()
+        {
+            if (HttpContext.Session.GetString("IdUsuario") != null)
+            {
+                string id = HttpContext.Session.GetString("IdUsuario");
+
+                SesionUsuario = new Usuario();
+                SesionUsuario.Id = int.Parse(id);
+                SesionUsuario = _context.usuario.Where(s => s.Id == SesionUsuario.Id).FirstOrDefault();
+
+                try
+                {
+                    ViewBag.Id = SesionUsuario.Id;
+                    ViewBag.Nombre = SesionUsuario.Nombre;
+                    ViewBag.Correo = SesionUsuario.Correo;
+                    ViewBag.Rol = SesionUsuario.Rol;
+                }
+                catch { }
+
+                if (SesionUsuario.Rol == 0)
+                {
+                    
+                }
+                else
+                {
+                    return RedirectToAction("ErrorSoloAdmin");
+                }
+            }
+            else
+            {
+                SesionUsuario = new Usuario();
+                return RedirectToAction("ErrorUsuario");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AgregarAdmin(Usuario user)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(user);
+                _context.SaveChanges();
+            }
+
+            return View();
+        }
+
+        public ActionResult ErrorUsuario()
+        {
+            return View();
+        }
+
+        public ActionResult ErrorSoloAdmin()
+        {
+            if (HttpContext.Session.GetString("IdUsuario") != null)
+            {
+                string id = HttpContext.Session.GetString("IdUsuario");
+
+                SesionUsuario = new Usuario();
+                SesionUsuario.Id = int.Parse(id);
+                SesionUsuario = _context.usuario.Where(s => s.Id == SesionUsuario.Id).FirstOrDefault();
+
+                try
+                {
+                    ViewBag.Id = SesionUsuario.Id;
+                    ViewBag.Nombre = SesionUsuario.Nombre;
+                    ViewBag.Correo = SesionUsuario.Correo;
+                    ViewBag.Rol = SesionUsuario.Rol;
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                SesionUsuario = new Usuario();
+                return RedirectToAction("ErrorUsuario");
+            }
             return View();
         }
     }
