@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "LogIn";
+}
+@model Usuario
+
+<link rel="stylesheet" href="~/css/StyleLogin.css" />
+
+<div class="continer">
+    <div class="row content" id="contenido">
+        <div class="col-md-6 mb-3">
+            <img src="~/img/Ferreteria.png" class="img-fluid" alt="image">
+        </div>
+        <div class="col-md-6" id="conteni">
+            <br>
+            <br>
+            <br>
+            <h3 class="signin-text mb-3">Iniciar Sesión</h3>
+            <img src="~/img/configuraciones.png" alt="image" class="img-fluid" id="im">
+            <br>
+            <form asp-controller="Usuarios" asp-action="DoLoginUsuario" method="post">
+                <div class="form-group">
+                    <br>
+                    <label asp-for="Correo">Usuario</label>
+                    <input asp-for="Correo" type="email" class="form-control">
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <label asp-for="Password">password</label>
+                    <input asp-for="Password" type="password" class="form-control">
+                </div>
+                <br>
+                <br>
+                <input type="submit" value="Iniciar Sesión" class="btn btn-warning">
+            </form>
+        </div>
+    </div>
+</div>

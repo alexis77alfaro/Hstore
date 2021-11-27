@@ -1,0 +1,23 @@
+﻿#cabezera {
+    text-align: center;
+}
+
+
+#container {
+    background-color: peru;
+    padding: 0.5em;
+}
+
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 44px;
+    text-align: center;
+}
+
+#img {
+    width: 50px;
+}

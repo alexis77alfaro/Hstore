@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "Home User page";
+}
+
+<h1>Welcome To Index Users</h1>
+<h3>@ViewBag.Id</h3>
+<h3>@ViewBag.Nombre</h3>
+<h3>@ViewBag.Correo</h3>
+
+@if (ViewBag.Rol == 0)
+{
+    <h3>Eres Administrador</h3>
+}
+else if(ViewBag.Rol == 1)
+{
+    <h3>Eres Cliente</h3>
+}
+
