@@ -1,4 +1,6 @@
-﻿using HardwareStore.Models;
+﻿using HardwareStore.Data;
+using HardwareStore.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,28 +13,39 @@ namespace HardwareStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
+        private static Usuario SesionUsuario;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            
-            return View();
-        }
+            if (HttpContext.Session.GetString("IdUsuario") != null)
+            {
+                string id = HttpContext.Session.GetString("IdUsuario");
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+                SesionUsuario = new Usuario();
+                SesionUsuario.Id = int.Parse(id);
+                SesionUsuario = _context.usuario.Where(s => s.Id == SesionUsuario.Id).FirstOrDefault();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                try
+                {
+                    ViewBag.Id = SesionUsuario.Id;
+                    ViewBag.Nombre = SesionUsuario.Nombre;
+                    ViewBag.Correo = SesionUsuario.Correo;
+                    ViewBag.Password = SesionUsuario.Password;
+                    ViewBag.Rol = SesionUsuario.Rol;
+                }
+                catch
+                {
+
+                }
+            }
+
+            return View();
         }
     }
 }

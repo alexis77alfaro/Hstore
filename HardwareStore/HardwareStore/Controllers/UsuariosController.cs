@@ -34,6 +34,7 @@ namespace HardwareStore.Controllers
                     ViewBag.Id = SesionUsuario.Id;
                     ViewBag.Nombre = SesionUsuario.Nombre;
                     ViewBag.Correo = SesionUsuario.Correo;
+                    ViewBag.Password = SesionUsuario.Password;
                     ViewBag.Rol = SesionUsuario.Rol;
                 }
                 catch
@@ -141,6 +142,20 @@ namespace HardwareStore.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Usuario user)
+        {
+            _context.usuario.Update(user);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Usuarios");
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult ErrorUsuario()
