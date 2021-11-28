@@ -1,0 +1,40 @@
+﻿@model Producto
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Crear Nuevo Producto</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form asp-controller="Productos" asp-action="" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="NombreProducto" class="form-label">Nombre del Producto: </label>
+                    <input asp-for="NombreProducto" type="text" class="form-control">
+                    <span asp-validation-for="NombreProducto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrecioInicial" class="form-label">Precio Inicial: </label>
+                    <input asp-for="PrecioInicial" type="text" class="form-control">
+                    <span asp-validation-for="PrecioInicial" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrecioVenta" class="form-label">Precio de Venta:</label>
+                    <input asp-for="PrecioVenta" type="text" class="form-control">
+                    <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Stock" class="form-label">Inventario(Stock): </label>
+                    <input asp-for="Stock" type="number" class="form-control">
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Agregar Producto" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -322,3 +322,6 @@ C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Vi
 C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Productos\IndexUsuario.cshtml.g.cs
 C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Usuarios\AgregarAdmin.cshtml.g.cs
 C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Usuarios\ErrorSoloAdmin.cshtml.g.cs
+C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Productos\IndexAdmin.cshtml.g.cs
+C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Productos\AgregarProducto.cshtml.g.cs
+C:\Users\pc\Desktop\Hstore\HardwareStore\HardwareStore\obj\Debug\net5.0\Razor\Views\Productos\EditarProducto.cshtml.g.cs
