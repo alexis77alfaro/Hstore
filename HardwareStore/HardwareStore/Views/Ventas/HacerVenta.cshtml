@@ -1,0 +1,215 @@
+﻿@{
+    IEnumerable<Producto> listaProductos = ViewBag.ListaProductos;
+}
+
+@model Venta
+@if (TempData["compraCompleta"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        @TempData["compraCompleta"]
+    </div>
+}
+<h2>Realizar Compra</h2>
+
+<!-- Buscar y Agregar Producto -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalProductList">
+    Buscar Producto
+</button>
+
+<br />
+<br />
+<br />
+
+<input type="text" id="IdProducto" value="" disabled />
+<input type="text" id="NombreProducto" value="" disabled />
+<input type="hidden" id="PrecioInicial" value="" disabled />
+<input type="text" id="PrecioVenta" value="" disabled />
+<input type="text" id="Stock" value="" disabled />
+<input type="text" id="Cantidad" value="" />
+
+<br />
+<br />
+<br />
+
+<button onClick="AddProduct()" type="button" class="btn btn-success">
+    Agregar el producto a la tabla
+</button>
+
+<br />
+<br />
+<br />
+
+<!-- Fin Buscar y Agregar Producto -->
+<!-- Tabla lista de Productos -->
+<h3>Lista de Productos a Comprar</h3>
+<p>
+    Total de productos a comprar:
+    <span id="adicionados"></span>
+</p>
+<form asp-controller="Ventas" asp-action="Vender" method="post">
+    <input asp-for="FechaVenta" value="" id="fecha" />
+    <table class="table" id="tablaListaProductosVenta">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">SubTotal</th>
+                <th scope="col">Opcion</th>
+            </tr>
+        </thead>
+    </table>
+    <!-- Tabla lista de Productos -->
+    <!-- Finalizando Venta -->
+    <label asp-for="TotalVenta" class="form-label">Total:</label>
+    <input asp-for="TotalVenta" type="text" value="" id="TotalVenta" />
+
+    <input type="submit" value="Realizar Venta" />
+</form>
+<!-- Fin Finalizando Venta -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="ModalProductList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Buscar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    @if (listaProductos.Count() > 0)
+                    {
+                        <table id="tablaListaProductos" class="table table-hover table-dark">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nombre del Producto</th>
+                                    <th scope="col">Precio Inicial</th>
+                                    <th scope="col">Precio de Venta</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Opción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in listaProductos)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.NombreProducto</td>
+                                        <td>@item.PrecioInicial</td>
+                                        <td>@item.PrecioVenta</td>
+                                        <td>@item.Stock</td>
+                                        <td>
+                                            <button onClick="SetData()" class="btn btn-outline-success" id="selectedProd" data-dismiss="modal">Seleccionar</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No existen productos registrados!</p>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/jquery-3.6.0.min.js" asp-append-version="true"></script>
+<script>
+    var i = 0;
+    var cantidadFilas = 0;
+    var totalVenta = 0;
+
+    $(document).ready(function () {
+
+        var now = new Date();
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $("#fecha").val(today);
+    });
+
+    function SetData() {
+        $('#tablaListaProductos tr').on('click', function () {
+            var dato1 = $(this).find('td:eq(0)').html();
+            var dato2 = $(this).find('td:eq(1)').html();
+            var dato3 = $(this).find('td:eq(2)').html();
+            var dato4 = $(this).find('td:eq(3)').html();
+            var dato5 = $(this).find('td:eq(4)').html();
+            $('#IdProducto').val(dato1);
+            $('#NombreProducto').val(dato2);
+            $('#PrecioInicial').val(dato3);
+            $('#PrecioVenta').val(dato4);
+            $('#Stock').val(dato5);
+            $('#Cantidad').val("1");
+        });
+    }
+
+    function AddProduct() {
+        var Stock = document.getElementById("Stock").value;
+        var Cantidad = document.getElementById("Cantidad").value;
+
+        if (parseInt(Stock) >= parseInt(Cantidad)) {
+            var Id = document.getElementById("IdProducto").value;
+            var Nombre = document.getElementById("NombreProducto").value;
+            var PrecioVenta = document.getElementById("PrecioVenta").value;
+
+            var SubTotal = (PrecioVenta * Cantidad);
+
+            var fila = '<tr id="row' + i + '"><td>' + Id + '<input name="detallesVenta[' + i + '].ProductoId" type="hidden" value="' + Id + '" /></td><td>' + Nombre + '</td><td>' + PrecioVenta + '</td><td>' + Cantidad + '<input name="detallesVenta[' + i + '].UnidadesVendidas" type="hidden" value="' + Cantidad + '" /></td><td>' + SubTotal + '<input name="detallesVenta[' + i + '].SubTotal" type="hidden" value="' + SubTotal + '" /></td><td><button onclick="DeleteProd(this.id)" type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td><td style="visibility:hidden;">' + SubTotal + '</td></tr>';
+
+            i++;
+
+            //agregando fila a la tabla
+            $('#tablaListaProductosVenta tr:first').after(fila);
+
+            cantidadFilas++;
+            $("#adicionados").text("");
+            $("#adicionados").text(cantidadFilas);
+
+            //limpiando los inputs
+            $("#IdProducto").val('');
+            $("#NombreProducto").val('');
+            $("#PrecioInicial").val('');
+            $("#PrecioVenta").val('');
+            $("#Stock").val('');
+            $("#Cantidad").val('');
+
+
+            totalVenta = totalVenta + SubTotal;
+
+            $("#TotalVenta").val(totalVenta);
+
+        } else {
+            alert("No puedes comprar mas de lo que hay en Stock!!!");
+            alert("Stock: " + Stock + " Cantidad: " + Cantidad)
+        }
+    }
+
+    function DeleteProd(id) {
+        cantidadFilas = cantidadFilas - 1;
+        $("#adicionados").text("");
+        $("#adicionados").text(cantidadFilas);
+
+        var menosSubTotal = $("#row" + id).find('td:eq(6)').text();
+
+        totalVenta = totalVenta - menosSubTotal;
+        $("#TotalVenta").val(totalVenta);
+
+        i = i - 1;
+        $("#row" + id).remove();
+    }
+</script>

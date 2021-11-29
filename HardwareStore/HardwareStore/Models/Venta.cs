@@ -22,5 +22,9 @@ namespace HardwareStore.Models
 
         [Display(Name = "IdCliente")]
         public Usuario usuario { get; set; }
+
+        public int usuarioId { get; set; }
+
+        public List<DetalleVenta> detallesVenta { get; set; }
     }
 }

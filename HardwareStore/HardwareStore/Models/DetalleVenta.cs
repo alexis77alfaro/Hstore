@@ -28,5 +28,9 @@ namespace HardwareStore.Models
 
         [Display(Name = "IdVenta")]
         public Venta venta { get; set; }
+
+        public int ProductoId { get; set; }
+
+        public int VentaId { get; set; }
     }
 }

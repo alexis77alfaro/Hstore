@@ -7493,19 +7493,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Alexis\\.nuget\\packages\\": {}
+    "C:\\Users\\pc\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alexis\\Documents\\GitHub\\Hstore\\HardwareStore\\HardwareStore\\HardwareStore.csproj",
+      "projectUniqueName": "C:\\Users\\pc\\Desktop\\Ferreteria\\Hstore\\HardwareStore\\HardwareStore\\HardwareStore.csproj",
       "projectName": "HardwareStore",
-      "projectPath": "C:\\Users\\Alexis\\Documents\\GitHub\\Hstore\\HardwareStore\\HardwareStore\\HardwareStore.csproj",
-      "packagesPath": "C:\\Users\\Alexis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alexis\\Documents\\GitHub\\Hstore\\HardwareStore\\HardwareStore\\obj\\",
+      "projectPath": "C:\\Users\\pc\\Desktop\\Ferreteria\\Hstore\\HardwareStore\\HardwareStore\\HardwareStore.csproj",
+      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pc\\Desktop\\Ferreteria\\Hstore\\HardwareStore\\HardwareStore\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Alexis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7574,7 +7579,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

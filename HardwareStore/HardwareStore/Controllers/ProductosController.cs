@@ -127,7 +127,7 @@ namespace HardwareStore.Controllers
 
 
         [HttpPost]
-        public IActionResult AgregarProductop(Producto pr)
+        public IActionResult AgregarProducto(Producto pr)
         {
 
             if(ModelState.IsValid)
@@ -160,10 +160,6 @@ namespace HardwareStore.Controllers
                 SesionUsuario = new Usuario();
                 SesionUsuario.Id = int.Parse(id);
                 SesionUsuario = _context.usuario.Where(s => s.Id == SesionUsuario.Id).FirstOrDefault();
-
-                
-  
-
 
                 try
                 {
@@ -209,12 +205,6 @@ namespace HardwareStore.Controllers
                 SesionUsuario = new Usuario();
                 return RedirectToAction("ErrorUsuario");
             }
-
-
-          
-
-
-
         }
 
 
