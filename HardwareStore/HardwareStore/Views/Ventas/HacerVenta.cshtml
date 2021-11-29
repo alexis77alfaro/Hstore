@@ -12,6 +12,7 @@
         @TempData["compraCompleta"]
     </div>
 }
+
 <h2>Realizar Compra</h2>
 
 <!-- Buscar y Agregar Producto -->
@@ -22,14 +23,25 @@
 <br />
 <br />
 <br />
-
-<input type="text" id="IdProducto" value="" disabled />
-<input type="text" id="NombreProducto" value="" disabled />
-<input type="hidden" id="PrecioInicial" value="" disabled />
-<input type="text" id="PrecioVenta" value="" disabled />
-<input type="text" id="Stock" value="" disabled />
-<input type="text" id="Cantidad" value="" />
-
+<div class="inputsVoid">
+    <div>
+        <label for="IdProducto">Id del Producto</label>
+        <input type="text" id="IdProducto" name="IdProducto" value="" disabled />
+        <label for="NombreProducto">Nombre del Producto</label>
+        <input type="text" id="NombreProducto" name="NombreProducto" value="" disabled />
+    </div>
+    <div>
+        <input type="hidden" id="PrecioInicial" name="PrecioInicial" value="" disabled />
+        <label for="PrecioVenta">Precio de Venta</label>
+        <input type="text" id="PrecioVenta" name="PrecioVenta" value="" disabled />
+        <label for="Stock">Inventario(Stock):</label>
+        <input type="text" id="Stock" value="" name="Stock" disabled />
+    </div>
+    <div>
+        <label for="Cantidad">Cantidad a comprar: </label>
+        <input type="text" id="Cantidad" name="Cantidad" value="" />
+    </div>
+</div>
 <br />
 <br />
 <br />
@@ -53,22 +65,28 @@
     <input asp-for="FechaVenta" value="" id="fecha" />
     <table class="table" id="tablaListaProductosVenta">
         <thead>
-            <tr>
+            <tr id="row-1">
                 <th scope="col">Id</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Precio Venta</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">SubTotal</th>
                 <th scope="col">Opcion</th>
+                <th scope="col" style="visibility: hidden;">
+                    <button id="setInputs" type="button">
+                        Set Inputs
+                    </button>
+                </th>
             </tr>
         </thead>
     </table>
     <!-- Tabla lista de Productos -->
     <!-- Finalizando Venta -->
-    <label asp-for="TotalVenta" class="form-label">Total:</label>
+    <label asp-for="TotalVenta" class="form-label">Total: $</label>
     <input asp-for="TotalVenta" type="text" value="" id="TotalVenta" />
 
-    <input type="submit" value="Realizar Venta" />
+    <div id="inputsContainer" style="visibility: hidden;"></div>
+    <input id="vender" type="submit" value="Realizar Venta" class="btn btn-success" disabled/>
 </form>
 <!-- Fin Finalizando Venta -->
 <!-- Modal -->
@@ -130,6 +148,8 @@
     var i = 0;
     var cantidadFilas = 0;
     var totalVenta = 0;
+    $("#adicionados").text("");
+    $("#adicionados").text(cantidadFilas);
 
     $(document).ready(function () {
 
@@ -155,6 +175,7 @@
             $('#PrecioVenta').val(dato4);
             $('#Stock').val(dato5);
             $('#Cantidad').val("1");
+            $('#Cantidad').focus();
         });
     }
 
@@ -169,12 +190,12 @@
 
             var SubTotal = (PrecioVenta * Cantidad);
 
-            var fila = '<tr id="row' + i + '"><td>' + Id + '<input name="detallesVenta[' + i + '].ProductoId" type="hidden" value="' + Id + '" /></td><td>' + Nombre + '</td><td>' + PrecioVenta + '</td><td>' + Cantidad + '<input name="detallesVenta[' + i + '].UnidadesVendidas" type="hidden" value="' + Cantidad + '" /></td><td>' + SubTotal + '<input name="detallesVenta[' + i + '].SubTotal" type="hidden" value="' + SubTotal + '" /></td><td><button onclick="DeleteProd(this.id)" type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td><td style="visibility:hidden;">' + SubTotal + '</td></tr>';
+            var fila = '<tr id="row' + i + '"><td>' + Id + '</td><td>' + Nombre + '</td><td>' + PrecioVenta + '</td><td>' + Cantidad + '</td><td>' + SubTotal.toFixed(2) + '</td><td><button onclick="DeleteProd(this.id)" type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td><td style="visibility:hidden;">' + SubTotal.toFixed(2) + '</td></tr>';
 
             i++;
 
             //agregando fila a la tabla
-            $('#tablaListaProductosVenta tr:first').after(fila);
+            $('#tablaListaProductosVenta tr:last').after(fila);
 
             cantidadFilas++;
             $("#adicionados").text("");
@@ -191,13 +212,68 @@
 
             totalVenta = totalVenta + SubTotal;
 
-            $("#TotalVenta").val(totalVenta);
+            $("#TotalVenta").val(totalVenta.toFixed(2));
+
+            $("#vender").removeAttr("disabled");
 
         } else {
             alert("No puedes comprar mas de lo que hay en Stock!!!");
-            alert("Stock: " + Stock + " Cantidad: " + Cantidad)
         }
     }
+
+    $("#vender").click(function () {
+        document.getElementById("setInputs").click();
+    });
+
+    var indiceInputs = 0;
+    $("#setInputs").click(function () {
+        $("#tablaListaProductosVenta tr").each(function (index) {
+            
+
+            $(this).children("td").each(function (index2) {
+                switch (index2) {
+                    case 0:
+                        var input = document.createElement("input");
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', $(this).text());
+
+                        var nameToList = "detallesVenta[" + indiceInputs + "].ProductoId"
+
+                        input.setAttribute('name', nameToList);
+
+                        var inputsContainer = document.getElementById("inputsContainer");
+                        inputsContainer.appendChild(input);
+                        break;
+
+                    case 3:
+                        var input = document.createElement("input");
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', $(this).text());
+
+                        var nameToList = "detallesVenta[" + indiceInputs + "].UnidadesVendidas"
+
+                        input.setAttribute('name', nameToList);
+
+                        var inputsContainer = document.getElementById("inputsContainer");
+                        inputsContainer.appendChild(input);
+                        break;
+
+                    case 4:
+                        var input = document.createElement("input");
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', $(this).text());
+
+                        var nameToList = "detallesVenta[" + indiceInputs + "].SubTotal"
+                        indiceInputs = indiceInputs + 1;
+                        input.setAttribute('name', nameToList);
+
+                        var inputsContainer = document.getElementById("inputsContainer");
+                        inputsContainer.appendChild(input);
+                        break;
+                }
+            });
+        });
+    });
 
     function DeleteProd(id) {
         cantidadFilas = cantidadFilas - 1;
@@ -211,5 +287,9 @@
 
         i = i - 1;
         $("#row" + id).remove();
+
+        if (cantidadFilas == 0) {
+            $("#vender").prop('disabled', true);
+        }
     }
 </script>
