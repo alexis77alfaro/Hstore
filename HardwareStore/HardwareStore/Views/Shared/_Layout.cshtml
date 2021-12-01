@@ -16,9 +16,7 @@
                 <img src="~/img/Ferreteria.png" alt="" id="img">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Productos" asp-action="IndexUsuario">Tienda</a>
-                        </li>
+
 
                         @if (ViewBag.Id != null)
                         {
@@ -37,6 +35,9 @@
                             }
                             @if (ViewBag.Rol == 1)
                             {
+                                <li class="nav-item">
+                                    <a class="nav-link active" asp-controller="Productos" asp-action="IndexUsuario">Tienda</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Ventas" asp-action="HacerVenta">Comprar</a>
                                 </li>

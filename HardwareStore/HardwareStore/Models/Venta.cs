@@ -13,7 +13,7 @@ namespace HardwareStore.Models
 
         [Display(Name = "FechaVenta")]
         [Required(ErrorMessage = "El campo Fecha es obligatorio!")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime FechaVenta { get; set; }
 
         [Display(Name = "TotalVenta")]

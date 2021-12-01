@@ -29,6 +29,9 @@ namespace HardwareStore.Controllers
                 SesionUsuario.Id = int.Parse(id);
                 SesionUsuario = _context.usuario.Where(s => s.Id == SesionUsuario.Id).FirstOrDefault();
 
+                IEnumerable<Venta> listaVentas = _context.venta.Where(s => s.usuarioId == SesionUsuario.Id);
+                ViewBag.ListaVentas = listaVentas;
+
                 try
                 {
                     ViewBag.Id = SesionUsuario.Id;
@@ -74,13 +77,13 @@ namespace HardwareStore.Controllers
             }
         }
 
-        //Http Post LoginUsuario
+        //Http Get AgregarUsuario
         public ActionResult AgregarUsuario()
         {
             return View();
         }
 
-        //Http Post LoginUsuario
+        //Http Post AgregarUsuario
         [HttpPost]
         public ActionResult AgregarUsuario(Usuario user)
         {

@@ -61,6 +61,7 @@ namespace HardwareStore.Controllers
         public IActionResult Vender(Venta venta)
         {
             venta.usuarioId = SesionUsuario.Id;
+            venta.FechaVenta = DateTime.Now;
             //Nueva Venta
             _context.Add(venta);
             _context.SaveChanges();

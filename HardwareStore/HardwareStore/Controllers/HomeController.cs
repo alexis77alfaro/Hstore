@@ -27,7 +27,11 @@ namespace HardwareStore.Controllers
             {
                 string id = HttpContext.Session.GetString("IdUsuario");
 
+
+
                 SesionUsuario = new Usuario();
+
+
                 SesionUsuario.Id = int.Parse(id);
                 SesionUsuario = _context.usuario.Where(s => s.Id == SesionUsuario.Id).FirstOrDefault();
 

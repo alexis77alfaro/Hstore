@@ -42,11 +42,12 @@ namespace HardwareStore.Controllers
                 {
 
                 }
+                IEnumerable<Producto> listaProductos = _context.producto;
+                return View(listaProductos);
             }
             else {
                 return RedirectToAction("ErrorUsuario", "Usuarios");
             }
-            return View();
         }
 
         //Método GET para Mostrar View del Crud de Productos(Ya carga la lista de productos)
@@ -310,7 +311,6 @@ namespace HardwareStore.Controllers
                 _context.producto.Remove(p);
                 _context.SaveChanges();
 
-                TempData["Mensaje"] = "Producto actualizado";
                 return RedirectToAction("IndexAdmin", "Productos");
 
             

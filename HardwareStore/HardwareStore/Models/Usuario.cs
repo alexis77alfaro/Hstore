@@ -25,6 +25,6 @@ namespace HardwareStore.Models
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser almenos de {2}", MinimumLength = 6)]
         public string Password { get; set; }
 
-        public int Rol { get; set; }
+        public int Rol { get; set; } // 0 = admin; 1 = cliente
     }
 }

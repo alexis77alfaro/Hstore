@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Mi Perfil";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    IEnumerable<Venta> listaVentas = ViewBag.listaVentas;
 }
 @model Usuario
 
@@ -118,41 +120,34 @@
 
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        @if (listaVentas.Count() > 0)
+                        {
                         <table class="table table-striped">
                             <caption><strong>Datos de mis compras </strong> </caption>
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">PrecioInicial</th>
-                                    <th scope="col">FechaVenta</th>
-                                    <th scope="col">TotalVenta</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Clavos</td>
-                                    <td>0.75</td>
-                                    <td>27/11/2021</td>
-                                    <td>0.80</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Desarmador</td>
-                                    <td>3.00</td>
-                                    <td>27/11/2021</td>
-                                    <td>3.25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Desarmador</td>
-                                    <td>3.00</td>
-                                    <td>27/11/2021</td>
-                                    <td>3.25</td>
-                                </tr>
+                                @foreach (var item in listaVentas)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.FechaVenta</td>
+                                        <td>@item.TotalVenta</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
+                        }
+                        else
+                        {
+                            <p>No existen compras registradas!</p>
+                        }
+                        
                     </div>
                 </div>
             </div>
